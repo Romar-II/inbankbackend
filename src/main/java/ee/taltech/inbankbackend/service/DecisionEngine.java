@@ -27,13 +27,13 @@ public class DecisionEngine {
      * The loan amount must be between 2000 and 10000€ months (inclusive).
      *
      * @param personalCode ID code of the customer that made the request.
-     * @param loanAmount Requested loan amount
-     * @param loanPeriod Requested loan period
+     * @param loanAmount   Requested loan amount
+     * @param loanPeriod   Requested loan period
      * @return A Decision object containing the approved loan amount and period, and an error message (if any)
      * @throws InvalidPersonalCodeException If the provided personal ID code is invalid
-     * @throws InvalidLoanAmountException If the requested loan amount is invalid
-     * @throws InvalidLoanPeriodException If the requested loan period is invalid
-     * @throws NoValidLoanException If there is no valid loan found for the given ID code, loan amount and loan period
+     * @throws InvalidLoanAmountException   If the requested loan amount is invalid
+     * @throws InvalidLoanPeriodException   If the requested loan period is invalid
+     * @throws NoValidLoanException         If there is no valid loan found for the given ID code, loan amount and loan period
      */
     public Decision calculateApprovedLoan(String personalCode, Long loanAmount, int loanPeriod)
             throws InvalidPersonalCodeException, InvalidLoanAmountException, InvalidLoanPeriodException,
@@ -102,11 +102,11 @@ public class DecisionEngine {
      * If inputs are invalid, then throws corresponding exceptions.
      *
      * @param personalCode Provided personal ID code
-     * @param loanAmount Requested loan amount
-     * @param loanPeriod Requested loan period
+     * @param loanAmount   Requested loan amount
+     * @param loanPeriod   Requested loan period
      * @throws InvalidPersonalCodeException If the provided personal ID code is invalid
-     * @throws InvalidLoanAmountException If the requested loan amount is invalid
-     * @throws InvalidLoanPeriodException If the requested loan period is invalid
+     * @throws InvalidLoanAmountException   If the requested loan amount is invalid
+     * @throws InvalidLoanPeriodException   If the requested loan period is invalid
      */
     private void verifyInputs(String personalCode, Long loanAmount, int loanPeriod)
             throws InvalidPersonalCodeException, InvalidLoanAmountException, InvalidLoanPeriodException {
