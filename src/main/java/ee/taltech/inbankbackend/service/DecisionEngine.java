@@ -163,7 +163,6 @@ public class DecisionEngine {
         Period age = Period.between(birthDate, currentDate);
         double ageInYears = age.getYears() + (age.getMonths() / 12.0) + (age.getDays() / 365.0);
         int loanPeriodInYears = loanPeriod/12;
-        System.out.println(ageInYears);
         return ageInYears+loanPeriodInYears>DecisionEngineConstants.LIFE_EXPECTANCY_IN_YEARS;
     }
 
