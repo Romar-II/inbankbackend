@@ -156,7 +156,7 @@ public class DecisionEngine {
     }
 
     private boolean isUnderAge(LocalDate birthDate, LocalDate currentDate) {
-        return Period.between(birthDate, currentDate).getYears() < 18;
+        return Period.between(birthDate, currentDate).getYears() < DecisionEngineConstants.AGE_OF_MAJORITY;
     }
 
     private boolean isOverDesiredAge(LocalDate birthDate, LocalDate currentDate, int loanPeriod) {

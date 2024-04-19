@@ -11,6 +11,7 @@ public class DecisionEngineConstants {
     public static final Integer SEGMENT_1_CREDIT_MODIFIER = 100;
     public static final Integer SEGMENT_2_CREDIT_MODIFIER = 300;
     public static final Integer SEGMENT_3_CREDIT_MODIFIER = 1000;
+    public static final Integer AGE_OF_MAJORITY = 18;
     public static final double LIFE_EXPECTANCY_IN_YEARS = 76.74;
 
 }
