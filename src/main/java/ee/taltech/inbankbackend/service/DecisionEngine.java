@@ -114,9 +114,9 @@ public class DecisionEngine {
     private void verifyInputs(String personalCode, Long loanAmount, int loanPeriod)
             throws InvalidPersonalCodeException, InvalidLoanAmountException, InvalidLoanPeriodException {
 
-//        if (!validator.isValid(personalCode)) {
-//            throw new InvalidPersonalCodeException("Invalid personal ID code!");
-//        }
+        if (!validator.isValid(personalCode)) {
+            throw new InvalidPersonalCodeException("Invalid personal ID code!");
+        }
         if (this.isInvalidAge(personalCode, loanPeriod)) {
             throw new InvalidLoanAmountException("Loan cannot be issued due to age restrictions!");
         }
