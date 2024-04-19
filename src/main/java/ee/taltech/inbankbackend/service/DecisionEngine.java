@@ -8,6 +8,9 @@ import ee.taltech.inbankbackend.exceptions.InvalidPersonalCodeException;
 import ee.taltech.inbankbackend.exceptions.NoValidLoanException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 /**
  * A service class that provides a method for calculating an approved loan amount and period for a customer.
  * The loan amount is calculated based on the customer's credit modifier,
@@ -114,6 +117,9 @@ public class DecisionEngine {
 //        if (!validator.isValid(personalCode)) {
 //            throw new InvalidPersonalCodeException("Invalid personal ID code!");
 //        }
+        if (this.isInvalidAge(personalCode, loanPeriod)) {
+            throw new InvalidLoanAmountException("Loan cannot be issued due to age restrictions!");
+        }
         if (!(DecisionEngineConstants.MINIMUM_LOAN_AMOUNT <= loanAmount)
                 || !(loanAmount <= DecisionEngineConstants.MAXIMUM_LOAN_AMOUNT)) {
             throw new InvalidLoanAmountException("Invalid loan amount!");
@@ -124,4 +130,42 @@ public class DecisionEngine {
         }
 
     }
+
+
+
+    private boolean isInvalidAge(String personalCode, int loanPeriod) {
+        int birthYearSuffix = Integer.parseInt(personalCode.substring(0, 1));
+        int birthYearPrefix = switch (birthYearSuffix) {
+            case 1, 2 -> 18;
+            case 3, 4 -> 19;
+            default -> 20;
+        };
+        int birthYear = Integer.parseInt(birthYearPrefix + personalCode.substring(1, 3));
+        int birthMonth = Integer.parseInt(personalCode.substring(3, 5));
+        int birthDay = Integer.parseInt(personalCode.substring(5, 7));
+
+        LocalDate currentDate = LocalDate.now();
+        LocalDate birthDate = LocalDate.of(birthYear, birthMonth, birthDay);
+
+        if(this.isUnderAge(birthDate, currentDate)){
+            return true;
+        } else if (isOverDesiredAge(birthDate, currentDate, loanPeriod)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isUnderAge(LocalDate birthDate, LocalDate currentDate) {
+        return Period.between(birthDate, currentDate).getYears() < 18;
+    }
+
+    private boolean isOverDesiredAge(LocalDate birthDate, LocalDate currentDate, int loanPeriod) {
+        Period age = Period.between(birthDate, currentDate);
+        double ageInYears = age.getYears() + (age.getMonths() / 12.0) + (age.getDays() / 365.0);
+        int loanPeriodInYears = loanPeriod/12;
+        System.out.println(ageInYears);
+        return ageInYears+loanPeriodInYears>DecisionEngineConstants.LIFE_EXPECTANCY_IN_YEARS;
+    }
+
+
 }
